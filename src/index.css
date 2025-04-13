@@ -1,0 +1,61 @@
+/* src/index.css */
+.navbar {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #222;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: #4ade80; /* Tailwind-style green */
+  font-weight: bold;
+}
+
+html.light {
+  --bg-color: #fff;
+  --text-color: #000;
+}
+
+html.dark {
+  --bg-color: #111;
+  --text-color: #fff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.analytics-page {
+  padding: 2rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: #746f6f;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clickable {
+  cursor: pointer;
+}
