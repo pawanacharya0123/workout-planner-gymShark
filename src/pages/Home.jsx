@@ -9,7 +9,7 @@ const Home = () => {
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <div className="lg:col-span-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
-          <h3 className="text-xl font-semibold mb-4">Weekly Progress</h3>
+          <h3 className="text-xl font-semibold mb-4">This Week Progress</h3>
           <WeeklyProgress />
         </div>
 

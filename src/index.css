@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* src/index.css */
 /* @tailwind base;
 @tailwind components;
@@ -44,7 +46,7 @@ body {
 } */
 
 .analytics-page {
-  padding: 2rem;
+  padding: 4rem 10rem 10rem 10rem;
 }
 
 .grid-container {

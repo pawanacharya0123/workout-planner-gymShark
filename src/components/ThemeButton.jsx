@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../features/theme/themeSlice";
 
 const ThemeButton = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.mode);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   return (
     <button

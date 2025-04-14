@@ -40,13 +40,6 @@ const Exercise = () => {
     setSetIdsByExercise(initalExerciseState);
   }, []);
 
-  // const handleAddSet = (exerciseName) => {
-  //   setExerciseSets((prev) => ({
-  //     ...prev,
-  //     [exerciseName]: (prev[exerciseName] || 0) + 1,
-  //   }));
-  // };
-
   const handleAddSetComponent = (exerciseName) => {
     setSetIdsByExercise((prev) => ({
       ...prev,
@@ -62,43 +55,45 @@ const Exercise = () => {
   };
 
   return (
-    <div>
-      <h1>Exercise Page</h1>
-      <h2>
-        <button onClick={() => navigate(-1)}>Back</button>
-      </h2>
-      <ul>
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold text-center mb-6">💪 Exercise Page</h1>
+
+      <div className="mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-gray-300 dark:bg-gray-700 text-black dark:text-white px-4 py-2 rounded hover:bg-gray-400 dark:hover:bg-gray-600"
+        >
+          ← Back
+        </button>
+      </div>
+      <ul className="space-y-6">
         {exercises.map((exercise, idx) => (
           <div key={`${idx}-${exercise}`}>
-            <li>
-              {exercise.name}
-
-              {setIdsByExercise[exercise.name]?.map((setId) => (
-                <RepsAndWeight
-                  key={setId}
-                  setId={setId}
-                  exercise={exercise.name}
-                  sessionId={sessionId}
-                  onDeleteComponent={(setId) =>
-                    handleDeleteSetComponent(exercise.name, setId)
-                  }
-                  onSaveComponent={() => handleAddSetComponent(exercise.name)}
-                />
-              ))}
-
-              {/* <RepsAndWeight
-                exercise={exercise.name}
-                sessionId={sessionId}
-                handleAddSet={handleAddSet}
-              />
-
-              {[...Array(exerciseSets[exercise.name] || 0)].map((_, setIdx) => (
-                <RepsAndWeight
-                  exercise={exercise.name}
-                  sessionId={sessionId}
-                  handleAddSet={handleAddSet}
-                />
-              ))} */}
+            <li
+              key={`${idx}-${exercise.name}`}
+              className="bg-white dark:bg-gray-800 shadow-md p-4 rounded-lg"
+            >
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3">
+                🏋️ {exercise.name}
+              </h2>
+              <div className="space-y-4">
+                {setIdsByExercise[exercise.name]?.map((setId) => (
+                  <div key={setId} className="flex justify-center w-full">
+                    <RepsAndWeight
+                      key={setId}
+                      setId={setId}
+                      exercise={exercise.name}
+                      sessionId={sessionId}
+                      onDeleteComponent={(setId) =>
+                        handleDeleteSetComponent(exercise.name, setId)
+                      }
+                      onSaveComponent={() =>
+                        handleAddSetComponent(exercise.name)
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
             </li>
           </div>
         ))}

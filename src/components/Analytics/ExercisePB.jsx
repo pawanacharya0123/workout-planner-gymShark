@@ -46,10 +46,12 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
           className="flex justify-between items-center p-2 bg-gray-100 dark:bg-gray-700 rounded"
         >
           <span className="text-sm text-gray-600 dark:text-gray-300">
+            {/* {dateWithWeight.date} */}
             {new Date(dateWithWeight.date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
+              timeZone: "UTC",
             })}
           </span>
           <span className="text-sm font-semibold text-gray-800 dark:text-white">

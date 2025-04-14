@@ -34,25 +34,38 @@ const Plan = () => {
       .filter(Boolean),
     ...plans.filter((plan) => !sortedPlansArray.includes(plan.id)),
   ];
-  // console.log(filteredSortedWorkoutSessions);
 
   const firstSession = filteredSortedWorkoutSessions[0];
   const workoutId = firstSession?.workoutId;
   const planId = workouts.find((wk) => wk.id === workoutId)?.planId;
 
   return (
-    <div>
-      <h1>Plan Page</h1>
-      <ul>
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
+        Plan Page
+      </h1>
+      <ul className="space-y-4">
         {sortedPlans.map((plan) => (
           <li key={plan.id}>
-            <Link to={`/workout/${plan.id}`} key={plan.id}>
-              <h3 style={{ fontWeight: "bold" }}>
-                {plan.name.toUpperCase()}
-                <span style={{ color: "#888" }}> →</span>
-                <br />
-                {planId === plan.id ? "(active)" : ""}
-              </h3>
+            <Link
+              to={`/workout/${plan.id}`}
+              className="block bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-md transition duration-200"
+            >
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+                    {plan.name.toUpperCase()}{" "}
+                  </h3>
+                  {planId === plan.id && (
+                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">
+                      Active
+                    </span>
+                  )}
+                </div>
+                <span className="text-2xl text-gray-400 dark:text-gray-500">
+                  →
+                </span>
+              </div>
             </Link>
           </li>
         ))}
