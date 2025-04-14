@@ -13,13 +13,15 @@ const WeeklyProgress = () => {
             workoutSessions.filter(
               (wk) =>
                 new Date(wk.date).toISOString().split("T")[0] ===
-                new Date(dayInfo.date).toISOString().split("T")[0]
+                  new Date(dayInfo.date).toISOString().split("T")[0] &&
+                wk.exercises.length > 0
             ).length
           }
-          {"  "}exercises ON <strong>{dayInfo.day}</strong>:{" "}
+          {"  "}workouts ON <strong>{dayInfo.day}</strong>: {"  "}
           {new Date(dayInfo.date).toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
+            timeZone: "UTC",
           })}{" "}
         </div>
       ))}

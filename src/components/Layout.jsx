@@ -8,6 +8,7 @@ import CustomNavLink from "./navbar-component/CustomNavLink";
 const Layout = () => {
   // const location = useLocation();
   // const isActive = activePaths.includes(location.pathname);
+  console.log(new Date());
 
   return (
     <div>

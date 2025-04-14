@@ -2,12 +2,6 @@ import React from "react";
 import WeeklyProgress from "../components/Analytics/WeeklyProgress";
 import ExercisePB from "../components/Analytics/ExercisePB";
 const Home = () => {
-  // console.log(workoutSessions);
-  // console.log(
-  //   workoutSessions.filter(
-  //     (wk) => new Date(wk.date).toISOString().split("T")[0] === "2025-04-11"
-  //   ).length
-  // );
   return (
     <div className="analytics-page">
       <h1>Analytics Page</h1>

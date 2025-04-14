@@ -25,6 +25,6 @@ export const datesWithDays = () => {
       day: weekdays[day.getDay()],
     });
   }
+  // console.log(weekDates);
   return weekDates;
-  //   console.log(weekDates);
 };
