@@ -13,31 +13,37 @@ const Layout = () => {
   return (
     <div>
       {/* Navbar */}
-      <nav className="navbar">
-        <div className="nav-links">
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
-            to="/"
-          >
-            {" "}
-            Analytics{" "}
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
-            to="/create"
-          >
-            {" "}
-            Create Plan{" "}
-          </NavLink>
-          <CustomNavLink to="/plan">Start workout</CustomNavLink>
-        </div>
-        <div className="flex gap-2">
-          <UnitButton />
-          <ThemeButton />
+      <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex space-x-6">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "text-gray-700 dark:text-gray-300 hover:text-blue-400"
+              }
+              to="/"
+            >
+              {" "}
+              Analytics{" "}
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+                  : "text-gray-700 dark:text-gray-300 hover:text-blue-400"
+              }
+              to="/create"
+            >
+              {" "}
+              Create Plan{" "}
+            </NavLink>
+            <CustomNavLink to="/plan">Start workout</CustomNavLink>
+          </div>
+          <div>
+            {/* <UnitButton /> */}
+            <ThemeButton />
+          </div>
         </div>
       </nav>
 

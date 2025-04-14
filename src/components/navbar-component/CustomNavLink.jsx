@@ -11,7 +11,14 @@ const CustomNavLink = ({ to, children }) => {
     path.startsWith("/exercise/");
 
   return (
-    <NavLink to={to} className={isActive ? "nav-link active" : "nav-link"}>
+    <NavLink
+      to={to}
+      className={
+        isActive
+          ? "text-blue-500 font-semibold border-b-2 border-blue-500"
+          : "text-gray-700 dark:text-gray-300 hover:text-blue-400"
+      }
+    >
       {children}
     </NavLink>
   );

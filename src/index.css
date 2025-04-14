@@ -1,5 +1,10 @@
+@import "tailwindcss";
 /* src/index.css */
-.navbar {
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* .navbar {
   display: flex;
   gap: 1rem;
   padding: 1rem;
@@ -14,9 +19,9 @@
 }
 
 .nav-link.active {
-  color: #4ade80; /* Tailwind-style green */
+  color: #4ade80;
   font-weight: bold;
-}
+} */
 
 html.light {
   --bg-color: #fff;
@@ -33,10 +38,10 @@ body {
   color: var(--text-color);
 }
 
-.nav-links {
+/* .nav-links {
   display: flex;
   gap: 1rem;
-}
+} */
 
 .analytics-page {
   padding: 2rem;
@@ -44,7 +49,7 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   margin-top: 2rem;
 }
