@@ -3,6 +3,7 @@ import planReducer from "../features/plan/planSlice";
 import sessionReducer from "../features/workout/sessionSlice";
 import { loadState, saveState } from "../utils/localstorage";
 import themeReducer from "../features/theme/themeSlice";
+import unitReducer from "../features/unit/unitSlice";
 
 const persistedState = loadState();
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     plan: planReducer,
     session: sessionReducer,
     theme: themeReducer,
+    unit: unitReducer,
   },
   preloadedState: persistedState, // 👈 load from localStorage
 });
