@@ -24,7 +24,11 @@ const PlanBuilder = () => {
 
   return (
     <div style={{ padding: "1rem" }}>
-      {warningMessage && <div className="alert">{warningMessage}</div>}
+      {warningMessage && (
+        <div className="bg-yellow-100 dark:bg-yellow-950 border border-yellow-400 dark:border-yellow-800 text-yellow-800 dark:text-yellow-200 px-4 py-3 rounded relative mb-4">
+          ⚠️ {warningMessage}
+        </div>
+      )}
 
       {!selectedPlan && <Plan setSelectedPlan={setSelectedPlan} />}
 

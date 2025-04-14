@@ -11,6 +11,9 @@ const Workout = ({ selectedPlan, setSelectedWorkout, setSelectedPlan }) => {
   const workoutRef = useRef();
 
   const workouts = useSelector((state) => state.plan.workouts);
+  const workoutForThePlan = workouts.filter(
+    (w) => w.planId === selectedPlan.id
+  );
   const dispatch = useDispatch();
 
   const [editMode, setEditMode] = useState(defaultEditMode);
@@ -26,7 +29,6 @@ const Workout = ({ selectedPlan, setSelectedWorkout, setSelectedPlan }) => {
     editMode?.mode
       ? dispatch(updateWorkout(workout))
       : dispatch(addWorkout(workout));
-    // setWorkouts([...workouts, workout]);
     setSelectedWorkout(workout);
 
     workoutRef.current.value = "";
@@ -80,30 +82,28 @@ const Workout = ({ selectedPlan, setSelectedWorkout, setSelectedPlan }) => {
 
       <div className="mt-8">
         <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
-          Your Workouts
+          {workoutForThePlan.length ? "Your Workouts" : "No workout available"}
         </h3>
         <ul className="space-y-4">
-          {workouts
-            .filter((w) => w.planId === selectedPlan.id)
-            .map((workout) => (
-              <li
-                key={workout.id}
-                className="flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-md"
+          {workoutForThePlan.map((workout) => (
+            <li
+              key={workout.id}
+              className="flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-md"
+            >
+              <span
+                onClick={() => setSelectedWorkout(workout)}
+                className="text-lg font-semibold text-gray-800 dark:text-white cursor-pointer hover:text-blue-500"
               >
-                <span
-                  onClick={() => setSelectedWorkout(workout)}
-                  className="text-lg font-semibold text-gray-800 dark:text-white cursor-pointer hover:text-blue-500"
-                >
-                  {workout.name.toUpperCase()}
-                </span>
-                <button
-                  onClick={() => editbuttonClickHandler(workout)}
-                  className="px-4 py-2 text-sm text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-yellow-600 dark:hover:bg-yellow-700"
-                >
-                  Edit
-                </button>
-              </li>
-            ))}
+                {workout.name.toUpperCase()}
+              </span>
+              <button
+                onClick={() => editbuttonClickHandler(workout)}
+                className="px-4 py-2 text-sm text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-yellow-600 dark:hover:bg-yellow-700"
+              >
+                Edit
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

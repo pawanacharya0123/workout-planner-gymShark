@@ -72,7 +72,7 @@ const Plan = ({ setSelectedPlan }) => {
 
       <div className="mt-8">
         <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
-          Your Plans
+          {plans.length ? "Your Plans" : "No plans available"}
         </h3>
         <ul className="space-y-4">
           {plans.map((plan, idx) => (

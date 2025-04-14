@@ -58,14 +58,21 @@ const Exercise = () => {
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold text-center mb-6">💪 Exercise Page</h1>
 
-      <div className="mb-6">
+      <div className="mb-6 flex justify-between items-center">
         <button
           onClick={() => navigate(-1)}
           className="bg-gray-300 dark:bg-gray-700 text-black dark:text-white px-4 py-2 rounded hover:bg-gray-400 dark:hover:bg-gray-600"
         >
           ← Back
         </button>
+        <button
+          onClick={() => navigate("/")}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        >
+          ✅ Finish Workout
+        </button>
       </div>
+
       <ul className="space-y-6">
         {exercises.map((exercise, idx) => (
           <div key={`${idx}-${exercise}`}>

@@ -4,6 +4,7 @@ import sessionReducer from "../features/workout/sessionSlice";
 import { loadState, saveState } from "../utils/localstorage";
 import themeReducer from "../features/theme/themeSlice";
 import unitReducer from "../features/unit/unitSlice";
+import pbBoardReducer from "../features/analytics/pbBoardSlice";
 
 const persistedState = loadState();
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     session: sessionReducer,
     theme: themeReducer,
     unit: unitReducer,
+    pb: pbBoardReducer,
   },
   preloadedState: persistedState, // 👈 load from localStorage
 });
