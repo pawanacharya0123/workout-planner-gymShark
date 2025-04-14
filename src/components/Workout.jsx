@@ -7,7 +7,12 @@ const defaultEditMode = {
   workout: {},
 };
 
-const Workout = ({ selectedPlan, setSelectedWorkout, setSelectedPlan }) => {
+const Workout = ({
+  selectedPlan,
+  setSelectedWorkout,
+  setSelectedPlan,
+  setSuccessMessage,
+}) => {
   const workoutRef = useRef();
 
   const workouts = useSelector((state) => state.plan.workouts);
@@ -29,6 +34,12 @@ const Workout = ({ selectedPlan, setSelectedWorkout, setSelectedPlan }) => {
     editMode?.mode
       ? dispatch(updateWorkout(workout))
       : dispatch(addWorkout(workout));
+
+    setSuccessMessage(
+      editMode.mode
+        ? "Workout successfully updated!"
+        : "Workout successfully added!"
+    );
     setSelectedWorkout(workout);
 
     workoutRef.current.value = "";

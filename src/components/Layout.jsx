@@ -40,8 +40,9 @@ const Layout = () => {
             </NavLink>
             <CustomNavLink to="/plan">Start workout</CustomNavLink>
           </div>
-          <div>
-            {/* <UnitButton /> */}
+
+          <div className="flex items-center gap-2">
+            <UnitButton />
             <ThemeButton />
           </div>
         </div>

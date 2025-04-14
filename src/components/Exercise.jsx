@@ -11,7 +11,11 @@ const dummyExercises = [
   "Rows",
 ];
 
-const Exercise = ({ selectedWorkout, setSelectedWorkout, setSelectedPlan }) => {
+const Exercise = ({
+  selectedWorkout,
+  setSelectedWorkout,
+  setSuccessMessage,
+}) => {
   const exercises = useSelector((state) => state.plan.exercises);
   const dispatch = useDispatch();
 
@@ -32,7 +36,7 @@ const Exercise = ({ selectedWorkout, setSelectedWorkout, setSelectedPlan }) => {
         exercises: selectedExercises,
       })
     );
-
+    setSuccessMessage("Exercises successfully updated!");
     setSelectedWorkout(null);
   };
 

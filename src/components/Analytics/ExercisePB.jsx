@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { groupWeightByDate } from "../../utils/groupWeightByDate";
+import { unitConversion } from "../../utils/unitConversion";
 
 const ExercisePB = ({ exerciseName, filterOn }) => {
+  const globalUnit = useSelector((state) => state.unit.unit);
+
   const current = new Date();
   const currentDate = current.toISOString().split("T")[0];
 
@@ -25,7 +28,14 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
 
       if (match.length === 0) return null;
 
-      const weights = match[0].sets.map((set) => Number(set[filterOn]) || 0);
+      const weights = match[0].sets.map(
+        (set) =>
+          Number(
+            filterOn === "reps"
+              ? set[filterOn]
+              : unitConversion(set[filterOn], set.unit, globalUnit)
+          ) || 0
+      );
 
       const getMaxWeight = weights.length > 0 ? Math.max(...weights) : 0;
 
@@ -55,7 +65,8 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
             })}
           </span>
           <span className="text-sm font-semibold text-gray-800 dark:text-white">
-            {dateWithWeight.weight} {filterOn === "weight" ? "KGs" : "Reps"}
+            {dateWithWeight.weight}{" "}
+            {filterOn === "weight" ? globalUnit : "Reps"}
           </span>
         </div>
       ))}

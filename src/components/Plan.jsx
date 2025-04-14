@@ -6,7 +6,7 @@ const defaultEditMode = {
   plan: {},
 };
 
-const Plan = ({ setSelectedPlan }) => {
+const Plan = ({ setSelectedPlan, setSuccessMessage }) => {
   const planRef = useRef();
   const plans = useSelector((state) => state.plan.plans);
   const dispatch = useDispatch();
@@ -20,10 +20,11 @@ const Plan = ({ setSelectedPlan }) => {
       id: editMode.mode ? editMode.plan.id : crypto.randomUUID(),
       name: planRef.current.value,
     };
-    // console.log(plan);
-
     editMode.mode ? dispatch(updatePlan(plan)) : dispatch(addPlan(plan));
 
+    setSuccessMessage(
+      editMode.mode ? "Plan successfully updated!" : "Plan successfully added!"
+    );
     setEditMode(defaultEditMode);
     planRef.current.value = "";
     setSelectedPlan(plan);
@@ -35,7 +36,6 @@ const Plan = ({ setSelectedPlan }) => {
       mode: true,
       plan: planToEdit,
     }));
-    // console.log(planToEdit);
   };
 
   return (

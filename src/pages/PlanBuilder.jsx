@@ -12,15 +12,18 @@ const PlanBuilder = () => {
   const [warningMessage, setWarningMessage] = useState(
     location.state?.message || null
   );
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
-    if (warningMessage) {
+    // console.log("here");
+    if (warningMessage || successMessage) {
       const timer = setTimeout(() => {
         setWarningMessage(null);
+        setSuccessMessage(null);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [warningMessage]);
+  }, [warningMessage, successMessage]);
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -29,14 +32,25 @@ const PlanBuilder = () => {
           ⚠️ {warningMessage}
         </div>
       )}
+      {successMessage && (
+        <div className="bg-green-100 dark:bg-green-950 border border-green-400 dark:border-green-800 text-green-800 dark:text-green-200 px-4 py-3 rounded relative mb-4">
+          ✅ {successMessage}
+        </div>
+      )}
 
-      {!selectedPlan && <Plan setSelectedPlan={setSelectedPlan} />}
+      {!selectedPlan && (
+        <Plan
+          setSelectedPlan={setSelectedPlan}
+          setSuccessMessage={setSuccessMessage}
+        />
+      )}
 
       {selectedPlan && !selectedWorkout && (
         <Workout
           selectedPlan={selectedPlan}
           setSelectedWorkout={setSelectedWorkout}
           setSelectedPlan={setSelectedPlan}
+          setSuccessMessage={setSuccessMessage}
         />
       )}
 
@@ -44,7 +58,8 @@ const PlanBuilder = () => {
         <Exercise
           selectedWorkout={selectedWorkout}
           setSelectedWorkout={setSelectedWorkout}
-          setSelectedPlan={setSelectedPlan}
+          // setSelectedPlan={setSelectedPlan}
+          setSuccessMessage={setSuccessMessage}
         />
       )}
     </div>

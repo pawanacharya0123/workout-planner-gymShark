@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { unitConversion } from "../utils/unitConversion";
 
 const WorkOutHistory = ({ workoutProp }) => {
+  const globalUnit = useSelector((state) => state.unit.unit);
   const workouts = useSelector((state) => state.session.workoutSessions)
     .filter(
       (wk) =>
@@ -48,7 +50,9 @@ const WorkOutHistory = ({ workoutProp }) => {
                   <ul className="list-disc ml-6 text-gray-600 dark:text-gray-400 text-sm space-y-1">
                     {exercise.sets.map((set, setIndex) => (
                       <li key={set.setId || setIndex}>
-                        🏋️ Set {setIndex + 1}: {set.reps} reps @ {set.weight}kg
+                        🏋️ Set {setIndex + 1}: {set.reps} reps @{" "}
+                        {unitConversion(set.weight, set.unit, globalUnit)}{" "}
+                        {globalUnit}{" "}
                       </li>
                     ))}
                   </ul>

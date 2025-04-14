@@ -35,7 +35,7 @@ const sessionSlice = createSlice({
       );
     },
     addSetToExercise: (state, action) => {
-      const { sessionId, exercise, setId, reps, weight } = action.payload;
+      const { sessionId, exercise, setId, reps, weight, unit } = action.payload;
       const session = state.workoutSessions.find(
         (session) => session.id === sessionId
       );
@@ -46,7 +46,7 @@ const sessionSlice = createSlice({
         if (!exerciseEntry) {
           session.exercises.push({
             exercise,
-            sets: [{ setId, reps, weight }],
+            sets: [{ setId, reps, weight, unit }],
           });
         } else {
           let setEntry = exerciseEntry.sets.find((set) => set.setId == setId);
@@ -54,7 +54,7 @@ const sessionSlice = createSlice({
             setEntry.reps = reps;
             setEntry.weight = weight;
           } else {
-            exerciseEntry.sets.push({ setId, reps, weight });
+            exerciseEntry.sets.push({ setId, reps, weight, unit });
           }
         }
       }

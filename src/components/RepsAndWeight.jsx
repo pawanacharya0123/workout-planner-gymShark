@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { addSetToExercise, deleteSet } from "../features/workout/sessionSlice";
 
 const RepsAndWeight = ({
@@ -9,15 +9,11 @@ const RepsAndWeight = ({
   onDeleteComponent,
   onSaveComponent,
 }) => {
-  // const [setId, setSetId] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [saved, setSaved] = useState(false);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   setSetId(crypto.randomUUID());
-  // }, []);
+  const unit = useSelector((state) => state.unit.unit);
 
   const handleDeleteSet = () => {
     dispatch(
@@ -38,6 +34,7 @@ const RepsAndWeight = ({
         setId,
         reps,
         weight,
+        unit: unit,
       })
     );
     if (!saved) {
@@ -58,6 +55,7 @@ const RepsAndWeight = ({
         name="reps"
         placeholder="Reps"
         value={reps}
+        min={0}
         required
         onChange={(e) => setReps(e.currentTarget.value)}
       />
@@ -71,9 +69,13 @@ const RepsAndWeight = ({
         name="weight"
         placeholder="Weight"
         value={weight}
+        min={0}
         required
         onChange={(e) => setWeight(e.currentTarget.value)}
       />
+      <span className="px-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        {unit}
+      </span>
       <button
         type="button"
         onClick={onSaveSetClickHandle}
