@@ -40,49 +40,72 @@ const Workout = ({ selectedPlan, setSelectedWorkout, setSelectedPlan }) => {
   };
 
   return (
-    <section>
-      <h2>Create a Workout for "{selectedPlan.name.toUpperCase()}"</h2>
+    <section className="p-6 max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md">
+      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white">
+        Create a Workout for "{selectedPlan.name.toUpperCase()}"
+      </h2>
+
       <button
         onClick={() => setSelectedPlan(null)}
-        style={{
-          marginBottom: "1rem",
-          background: "#ddd",
-          padding: "0.5rem 1rem",
-        }}
+        className="mb-4 py-2 px-4 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded-md hover:bg-gray-400 dark:hover:bg-gray-500"
       >
         Back
       </button>
-      <form onSubmit={handleCreateWorkout}>
-        <span>" Workout name eg. Push Day"</span>
-        <br />
-        <input
-          name="workoutName"
-          placeholder="Enter workout name"
-          required
-          ref={workoutRef}
-        />
-        <button type="submit">
+
+      <form onSubmit={handleCreateWorkout} className="space-y-4">
+        <div>
+          <label
+            htmlFor="workoutName"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Workout Name (e.g., Push Day)
+          </label>
+          <input
+            name="workoutName"
+            id="workoutName"
+            placeholder="Enter workout name"
+            required
+            ref={workoutRef}
+            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
           {editMode?.mode ? "Update Workout" : "Create Workout"}
         </button>
       </form>
-      <ul>
-        {workouts
-          .filter((w) => w.planId === selectedPlan.id)
-          .map((workout) => (
-            <li key={workout.id}>
-              <span
-                onClick={() => setSelectedWorkout(workout)}
-                className="clickable"
+
+      <div className="mt-8">
+        <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">
+          Your Workouts
+        </h3>
+        <ul className="space-y-4">
+          {workouts
+            .filter((w) => w.planId === selectedPlan.id)
+            .map((workout) => (
+              <li
+                key={workout.id}
+                className="flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-md"
               >
-                {workout.name.toUpperCase()}
-              </span>
-              {"      "}
-              <button onClick={() => editbuttonClickHandler(workout)}>
-                Edit
-              </button>
-            </li>
-          ))}
-      </ul>
+                <span
+                  onClick={() => setSelectedWorkout(workout)}
+                  className="text-lg font-semibold text-gray-800 dark:text-white cursor-pointer hover:text-blue-500"
+                >
+                  {workout.name.toUpperCase()}
+                </span>
+                <button
+                  onClick={() => editbuttonClickHandler(workout)}
+                  className="px-4 py-2 text-sm text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:bg-yellow-600 dark:hover:bg-yellow-700"
+                >
+                  Edit
+                </button>
+              </li>
+            ))}
+        </ul>
+      </div>
     </section>
   );
 };

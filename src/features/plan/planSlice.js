@@ -27,7 +27,8 @@ const planSlice = createSlice({
     },
     updatePlan: (state, action) => {
       const updatedPlan = action.payload;
-      const index = state.plans.findIndex((plan) => (plan.id = updatedPlan.id));
+      const index = state.plans.findIndex((plan) => plan.id === updatedPlan.id);
+      console.log(index);
       if (index != -1) {
         state.plans[index] = updatedPlan;
       }
@@ -35,7 +36,7 @@ const planSlice = createSlice({
     updateWorkout: (state, action) => {
       const updatedWorkout = action.payload;
       const index = state.workouts.findIndex(
-        (workout) => (workout.id = updatedWorkout.id)
+        (workout) => workout.id === updatedWorkout.id
       );
       if (index != -1) {
         state.workouts[index] = updatedWorkout;

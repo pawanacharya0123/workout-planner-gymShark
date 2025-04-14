@@ -39,16 +39,24 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
   const groupDatesWithWeights = groupWeightByDate(datesWithWeights);
 
   return (
-    <div>
-      {/* {exerciseName} */}
-      <div>
-        {groupDatesWithWeights.map((dateWithWeight) => (
-          <p>
-            {dateWithWeight.date}- <strong>{dateWithWeight.weight}</strong>{" "}
-            {filterOn === "weight" ? "KGs" : "Reps"}
-          </p>
-        ))}
-      </div>
+    <div className="space-y-2">
+      {groupDatesWithWeights.map((dateWithWeight) => (
+        <div
+          key={dateWithWeight.date}
+          className="flex justify-between items-center p-2 bg-gray-100 dark:bg-gray-700 rounded"
+        >
+          <span className="text-sm text-gray-600 dark:text-gray-300">
+            {new Date(dateWithWeight.date).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </span>
+          <span className="text-sm font-semibold text-gray-800 dark:text-white">
+            {dateWithWeight.weight} {filterOn === "weight" ? "KGs" : "Reps"}
+          </span>
+        </div>
+      ))}
     </div>
   );
 };
