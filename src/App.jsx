@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Exercise from "./pages/Exercise";
 import Home from "./pages/Home";

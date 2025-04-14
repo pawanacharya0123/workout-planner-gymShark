@@ -1,15 +1,16 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addExercises } from "../features/plan/planSlice";
+import { EXERCISE_LIST } from "../utils/listOfExercises";
 
-const dummyExercises = [
-  "Bench Press",
-  "Squat",
-  "Deadlift",
-  "Overhead Press",
-  "Pull-ups",
-  "Rows",
-];
+// const dummyExercises = [
+//   "Bench Press",
+//   "Squat",
+//   "Deadlift",
+//   "Overhead Press",
+//   "Pull-ups",
+//   "Rows",
+// ];
 
 const Exercise = ({
   selectedWorkout,
@@ -55,7 +56,7 @@ const Exercise = ({
 
       <form onSubmit={handleSelectExercise} className="space-y-4">
         <div className="space-y-2">
-          {dummyExercises.map((ex, idx) => (
+          {EXERCISE_LIST.map((ex, idx) => (
             <label
               key={idx}
               className="flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300"
@@ -116,7 +117,7 @@ const Exercise = ({
     //     Back
     //   </button>
     //   <form onSubmit={handleSelectExercise}>
-    //     {dummyExercises.map((ex, idx) => (
+    //     {EXERCISE_LIST.map((ex, idx) => (
     //       <label key={idx} style={{ display: "block", marginBottom: "0.5rem" }}>
     //         <input
     //           type="checkbox"

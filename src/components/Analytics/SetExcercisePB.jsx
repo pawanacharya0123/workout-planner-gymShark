@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addPB } from "../../features/analytics/pbBoardSlice";
-const dummyExercises = [
-  "Squat",
-  "Deadlift",
-  "Bench Press",
-  "Pull-ups",
-  "Overhead Press",
-];
+import { EXERCISE_LIST } from "../../utils/listOfExercises";
+
+// const dummyExercises = [
+//   "Squat",
+//   "Deadlift",
+//   "Bench Press",
+//   "Pull-ups",
+//   "Overhead Press",
+// ];
 
 const SetExcercisePB = () => {
   const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const SetExcercisePB = () => {
     setShowDropdown(false);
   };
 
-  const exerciseToPB = dummyExercises.filter(
+  const exerciseToPB = EXERCISE_LIST.filter(
     (ex) => !exercisePBList.includes(ex)
   );
 
