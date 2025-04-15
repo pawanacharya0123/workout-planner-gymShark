@@ -21,7 +21,7 @@ export const datesWithDays = () => {
     const day = new Date(monday);
     day.setDate(monday.getDate() + i);
     weekDates.push({
-      date: day.toISOString().split("T")[0],
+      date: day.toLocaleString().split(",")[0],
       day: weekdays[day.getDay()],
     });
   }

@@ -7,19 +7,19 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
   const globalUnit = useSelector((state) => state.unit.unit);
 
   const current = new Date();
-  const currentDate = current.toISOString().split("T")[0];
+  const currentDate = current.toLocaleString().split(",")[0];
 
   const pastDate = new Date();
   pastDate.setDate(pastDate.getDate() - 30);
-  const pastDateFormatted = pastDate.toISOString().split("T")[0];
+  const pastDateFormatted = pastDate.toLocaleString().split(",")[0];
 
   const allWorkoutSessions = useSelector(
     (state) => state.session.workoutSessions
   );
   const workoutSessions = allWorkoutSessions.filter(
     (wk) =>
-      new Date(wk.date).toISOString().split("T")[0] >= pastDateFormatted &&
-      new Date(wk.date).toISOString().split("T")[0] <= currentDate
+      new Date(wk.date).toLocaleString().split(",")[0] >= pastDateFormatted &&
+      new Date(wk.date).toLocaleString().split(",")[0] <= currentDate
   );
 
   const datesWithWeights = workoutSessions
@@ -56,12 +56,10 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
           className="flex justify-between items-center p-2 bg-gray-100 dark:bg-gray-700 rounded"
         >
           <span className="text-sm text-gray-600 dark:text-gray-300">
-            {/* {dateWithWeight.date} */}
             {new Date(dateWithWeight.date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
-              timeZone: "UTC",
             })}
           </span>
           <span className="text-sm font-semibold text-gray-800 dark:text-white">

@@ -2,7 +2,7 @@ export const groupWeightByDate = (datesWithWeights) => {
   const grouped = {};
 
   datesWithWeights.forEach(({ date, weight }) => {
-    const newDate = new Date(date).toISOString().split("T")[0];
+    const newDate = new Date(date).toLocaleString().split(",")[0];
     if (!grouped[newDate]) {
       grouped[newDate] = weight;
     } else {

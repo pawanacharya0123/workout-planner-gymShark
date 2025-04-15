@@ -10,8 +10,8 @@ const WeeklyProgress = () => {
       {weekDates.map((dayInfo) => {
         const workoutsForTheDay = workoutSessions.filter(
           (wk) =>
-            new Date(wk.date).toISOString().split("T")[0] ===
-              new Date(dayInfo.date).toISOString().split("T")[0] &&
+            new Date(wk.date).toLocaleString().split(",")[0] ===
+              new Date(dayInfo.date).toLocaleString().split(",")[0] &&
             wk.exercises.length > 0
         ).length;
 
@@ -30,7 +30,7 @@ const WeeklyProgress = () => {
                 ${new Date(dayInfo.date).toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
-                  timeZone: "UTC",
+                  // timeZone: "UTC",
                 })}`}
               </span>
             </div>

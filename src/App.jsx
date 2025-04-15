@@ -9,12 +9,12 @@ import Workout from "./pages/Workout";
 import { useSelector } from "react-redux";
 
 function App() {
-  const theme = useSelector((state) => state.theme.mode);
+  // const theme = useSelector((state) => state.theme.mode);
 
-  useEffect(() => {
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(theme);
-  }, [theme]);
+  // useEffect(() => {
+  //   document.documentElement.classList.remove("light", "dark");
+  //   document.documentElement.classList.add(theme);
+  // }, [theme]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">

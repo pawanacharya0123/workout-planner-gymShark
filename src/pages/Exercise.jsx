@@ -26,7 +26,7 @@ const Exercise = () => {
       startSession({
         id: newSessionId,
         workoutId,
-        date: new Date().toISOString(),
+        date: new Date().toLocaleString(),
         exercises: [],
       })
     );
