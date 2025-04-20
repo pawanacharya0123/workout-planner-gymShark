@@ -12,6 +12,7 @@ const RepsAndWeight = ({
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [saved, setSaved] = useState(false);
+  const [updateLock, setUpdateLock] = useState(false);
   const dispatch = useDispatch();
   const unit = useSelector((state) => state.unit.unit);
 
@@ -27,6 +28,11 @@ const RepsAndWeight = ({
   };
 
   const onSaveSetClickHandle = () => {
+    if (reps == "" || weight == "") return null;
+    if (updateLock) {
+      setUpdateLock(false);
+      return;
+    }
     dispatch(
       addSetToExercise({
         sessionId,
@@ -41,6 +47,7 @@ const RepsAndWeight = ({
       setSaved(true);
       onSaveComponent();
     }
+    setUpdateLock(true);
   };
 
   return (
@@ -79,9 +86,13 @@ const RepsAndWeight = ({
       <button
         type="button"
         onClick={onSaveSetClickHandle}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        // className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className={`px-4 py-2 rounded transition text-white ${
+          updateLock ? "bg-gray-400 " : "bg-blue-600 hover:bg-blue-700"
+        }`}
+        // disabled={updateLock}
       >
-        {!saved ? "Save" : "Update"} Set
+        {!saved ? "Save Set" : updateLock ? "Click to Unlock" : "Update Set"}
       </button>
       {saved && (
         <button

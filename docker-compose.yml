@@ -1,0 +1,13 @@
+services:
+  workoutplanner:
+    build:
+      context: .
+    ports:
+      - 5173:5173
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /work-planner
+          ignore:
+            - node-modules
