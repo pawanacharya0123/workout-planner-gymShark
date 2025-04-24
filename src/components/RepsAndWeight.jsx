@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addSetToExercise, deleteSet } from "../features/workout/sessionSlice";
 
@@ -16,6 +16,10 @@ const RepsAndWeight = ({
   const dispatch = useDispatch();
   const unit = useSelector((state) => state.unit.unit);
 
+  // Track previous reps and weight
+  const prevRepsRef = useRef("");
+  const prevWeightRef = useRef("");
+
   const handleDeleteSet = () => {
     dispatch(
       deleteSet({
@@ -28,11 +32,27 @@ const RepsAndWeight = ({
   };
 
   const onSaveSetClickHandle = () => {
-    if (reps == "" || weight == "") return null;
     if (updateLock) {
       setUpdateLock(false);
       return;
     }
+    if (reps == "" || weight == "") return null;
+
+    const repsChanged = reps !== prevRepsRef.current;
+    const weightChanged = weight !== prevWeightRef.current;
+
+    // Restrict save/update if neither reps nor weight changed
+    if (!repsChanged && !weightChanged) {
+      setUpdateLock(true);
+      return;
+    }
+
+    // Save new values
+    prevRepsRef.current = reps;
+    prevWeightRef.current = weight;
+
+    console.log("here");
+
     dispatch(
       addSetToExercise({
         sessionId,
@@ -66,6 +86,7 @@ const RepsAndWeight = ({
         required
         onChange={(e) => setReps(e.currentTarget.value)}
       />
+
       <input
         className={
           !saved

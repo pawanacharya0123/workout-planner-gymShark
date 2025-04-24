@@ -1,9 +1,6 @@
-FROM node:23.6.1
-
-COPY . /work-planner
-RUN rm -rf /work-planner/node-modules
-
-WORKDIR /work-planner
-RUN npm ci
-
-CMD npm run dev
+FROM node:20-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 5173
+CMD ["npm", "run", "dev", "--", "--host"]
