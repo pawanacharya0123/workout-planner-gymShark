@@ -1,10 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleUnit } from "../features/unit/unitSlice";
+import useUnit from "../utils/customHooks/useUnit";
 
 const UnitButton = () => {
   const dispatch = useDispatch();
-  const unit = useSelector((state) => state.unit.unit);
+  const unit = useUnit();
   return (
     <button
       onClick={() => dispatch(toggleUnit())}

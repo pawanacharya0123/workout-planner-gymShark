@@ -1,23 +1,11 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addExercises } from "../features/plan/planSlice";
 import { EXERCISE_LIST } from "../utils/listOfExercises";
+import useExercises from "../utils/customHooks/useExercises";
 
-// const dummyExercises = [
-//   "Bench Press",
-//   "Squat",
-//   "Deadlift",
-//   "Overhead Press",
-//   "Pull-ups",
-//   "Rows",
-// ];
-
-const Exercise = ({
-  selectedWorkout,
-  setSelectedWorkout,
-  setSuccessMessage,
-}) => {
-  const exercises = useSelector((state) => state.plan.exercises);
+const Exercise = ({ selectedWorkout, setSelectedWorkout, dispatchMessage }) => {
+  const exercises = useExercises();
   const dispatch = useDispatch();
 
   const handleSelectExercise = (e) => {
@@ -37,7 +25,10 @@ const Exercise = ({
         exercises: selectedExercises,
       })
     );
-    setSuccessMessage("Exercises successfully updated!");
+    dispatchMessage({
+      type: "SET_SUCCESS",
+      payload: `Exercises successfully updated!`,
+    });
     setSelectedWorkout(null);
   };
 
@@ -103,52 +94,7 @@ const Exercise = ({
         </div>
       )}
     </section>
-
-    // <section>
-    //   <h2>Select Exercises for "{selectedWorkout.name.toUpperCase()}"</h2>
-    //   <button
-    //     onClick={() => setSelectedWorkout(null)}
-    //     style={{
-    //       marginBottom: "1rem",
-    //       background: "#ddd",
-    //       padding: "0.5rem 1rem",
-    //     }}
-    //   >
-    //     Back
-    //   </button>
-    //   <form onSubmit={handleSelectExercise}>
-    //     {EXERCISE_LIST.map((ex, idx) => (
-    //       <label key={idx} style={{ display: "block", marginBottom: "0.5rem" }}>
-    //         <input
-    //           type="checkbox"
-    //           name="exercises"
-    //           value={ex}
-    //           defaultChecked={exercises.some(
-    //             (e) => e.workoutId === selectedWorkout.id && e.name === ex
-    //           )}
-    //         />
-    //         {` ${ex}`}
-    //       </label>
-    //     ))}
-    //     <button type="submit" style={{ marginTop: "1rem" }}>
-    //       Submit Exercises
-    //     </button>
-    //   </form>
-
-    //   {exercises.length > 0 && (
-    //     <>
-    //       <h3>Selected Exercises:</h3>
-    //       <ul>
-    //         {exercises
-    //           .filter((ex) => ex.workoutId == selectedWorkout.id)
-    //           .map((ex, idx) => (
-    //             <li key={idx}>{ex.name}</li>
-    //           ))}
-    //       </ul>
-    //     </>
-    //   )}
-    // </section>
   );
 };
 
-export default Exercise;
+export default React.memo(Exercise);

@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useMemo } from "react";
+import { useDispatch } from "react-redux";
 import { addWorkout, updateWorkout } from "../features/plan/planSlice";
+import useWorkouts from "../utils/customHooks/useWorkouts";
 
 const defaultEditMode = {
   mode: false,
@@ -11,15 +12,16 @@ const Workout = ({
   selectedPlan,
   setSelectedWorkout,
   setSelectedPlan,
-  setSuccessMessage,
+  dispatchMessage,
 }) => {
-  const workoutRef = useRef();
-
-  const workouts = useSelector((state) => state.plan.workouts);
-  const workoutForThePlan = workouts.filter(
-    (w) => w.planId === selectedPlan.id
-  );
+  const [workoutName, setWorkoutName] = useState("");
   const dispatch = useDispatch();
+
+  const workouts = useWorkouts();
+
+  const workoutForThePlan = useMemo(() => {
+    return workouts.filter((w) => w.planId === selectedPlan.id);
+  }, [workouts]);
 
   const [editMode, setEditMode] = useState(defaultEditMode);
 
@@ -28,24 +30,24 @@ const Workout = ({
     const workout = {
       id: editMode?.mode ? editMode?.workout.id : crypto.randomUUID(),
       planId: selectedPlan.id,
-      name: workoutRef.current.value,
+      name: workoutName,
     };
 
     editMode?.mode
       ? dispatch(updateWorkout(workout))
       : dispatch(addWorkout(workout));
 
-    setSuccessMessage(
-      editMode.mode
-        ? "Workout successfully updated!"
-        : "Workout successfully added!"
-    );
+    dispatchMessage({
+      type: "SET_SUCCESS",
+      payload: `Workout successfully ${editMode.mode ? "updated" : "added"} !`,
+    });
     setSelectedWorkout(workout);
 
-    workoutRef.current.value = "";
+    setWorkoutName("");
   };
+
   const editbuttonClickHandler = (workoutToEdit) => {
-    workoutRef.current.value = workoutToEdit.name;
+    setWorkoutName(workoutToEdit.name);
     setEditMode(() => ({
       mode: true,
       workout: workoutToEdit,
@@ -78,7 +80,8 @@ const Workout = ({
             id="workoutName"
             placeholder="Enter workout name"
             required
-            ref={workoutRef}
+            value={workoutName}
+            onChange={(e) => setWorkoutName(e.target.value)}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
         </div>
@@ -121,4 +124,4 @@ const Workout = ({
   );
 };
 
-export default Workout;
+export default React.memo(Workout);

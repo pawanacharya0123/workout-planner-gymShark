@@ -2,14 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { groupWeightByDate } from "../../utils/groupWeightByDate";
 import { unitConversion } from "../../utils/unitConversion";
+import useUnit from "../../utils/customHooks/useUnit";
 
 const ExercisePB = ({ exerciseName, filterOn }) => {
-  const globalUnit = useSelector((state) => state.unit.unit);
+  const globalUnit = useUnit();
 
-  const current = new Date();
-  const currentDate = current.toLocaleString().split(",")[0];
+  const formatDate = (date) => new Date(date);
+  const currentDate = formatDate(new Date()).toLocaleString().split(",")[0];
 
-  const pastDate = new Date();
+  const pastDate = formatDate(new Date());
   pastDate.setDate(pastDate.getDate() - 30);
   const pastDateFormatted = pastDate.toLocaleString().split(",")[0];
 
@@ -72,4 +73,4 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
   );
 };
 
-export default ExercisePB;
+export default React.memo(ExercisePB);

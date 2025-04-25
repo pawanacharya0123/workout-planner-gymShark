@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { unitConversion } from "../utils/unitConversion";
+import useUnit from "../utils/customHooks/useUnit";
 
 const WorkOutHistory = ({ workoutProp }) => {
-  const globalUnit = useSelector((state) => state.unit.unit);
+  const globalUnit = useUnit();
   const workouts = useSelector((state) => state.session.workoutSessions)
     .filter(
       (wk) =>

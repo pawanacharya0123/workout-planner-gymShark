@@ -1,14 +1,18 @@
-import React, { useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { addPlan, updatePlan } from "../features/plan/planSlice";
+import usePlans from "../utils/customHooks/usePlans";
+
 const defaultEditMode = {
   mode: false,
   plan: {},
 };
 
-const Plan = ({ setSelectedPlan, setSuccessMessage }) => {
-  const planRef = useRef();
-  const plans = useSelector((state) => state.plan.plans);
+const Plan = ({ setSelectedPlan, dispatchMessage }) => {
+  const [planName, setPlanName] = useState("");
+
+  const plans = usePlans();
+
   const dispatch = useDispatch();
 
   const [editMode, setEditMode] = useState(defaultEditMode);
@@ -18,20 +22,22 @@ const Plan = ({ setSelectedPlan, setSuccessMessage }) => {
 
     const plan = {
       id: editMode.mode ? editMode.plan.id : crypto.randomUUID(),
-      name: planRef.current.value,
+      name: planName,
     };
     editMode.mode ? dispatch(updatePlan(plan)) : dispatch(addPlan(plan));
 
-    setSuccessMessage(
-      editMode.mode ? "Plan successfully updated!" : "Plan successfully added!"
-    );
+    dispatchMessage({
+      type: "SET_SUCCESS",
+      payload: `Plan successfully ${editMode.mode ? "updated" : "added"} !`,
+    });
+
     setEditMode(defaultEditMode);
-    planRef.current.value = "";
     setSelectedPlan(plan);
+    setPlanName("");
   };
 
   const editbuttonClickHandler = (planToEdit) => {
-    planRef.current.value = planToEdit.name;
+    setPlanName(planToEdit.name);
     setEditMode(() => ({
       mode: true,
       plan: planToEdit,
@@ -57,8 +63,10 @@ const Plan = ({ setSelectedPlan, setSuccessMessage }) => {
             id="planName"
             placeholder="Create a workout plan"
             required
-            ref={planRef}
+            value={planName}
+            // ref={planRef}
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            onChange={(e) => setPlanName(e.target.value)}
           />
         </div>
 
@@ -75,9 +83,9 @@ const Plan = ({ setSelectedPlan, setSuccessMessage }) => {
           {plans.length ? "Your Plans" : "No plans available"}
         </h3>
         <ul className="space-y-4">
-          {plans.map((plan, idx) => (
+          {plans.map((plan) => (
             <li
-              key={idx}
+              key={plan.id}
               className="flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-4 rounded-md"
             >
               <span
@@ -100,4 +108,4 @@ const Plan = ({ setSelectedPlan, setSuccessMessage }) => {
   );
 };
 
-export default Plan;
+export default React.memo(Plan);

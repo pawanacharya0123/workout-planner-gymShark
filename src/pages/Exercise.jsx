@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import RepsAndWeight from "../components/RepsAndWeight";
 import { startSession } from "../features/workout/sessionSlice";
+import useExercises from "../utils/customHooks/useExercises";
+const initalExerciseState = {};
 
 const Exercise = () => {
   const { workoutId } = useParams();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const exercises = useSelector((state) => state.plan.exercises).filter(
+  const exercises = useExercises().filter(
     (exercise) => exercise.workoutId == workoutId
   );
 
   const [sessionId, setSessionId] = useState(null);
-  // const [exerciseSets, setExerciseSets] = useState({});
 
   const [setIdsByExercise, setSetIdsByExercise] = useState({});
 
@@ -33,7 +34,6 @@ const Exercise = () => {
   }, []);
 
   useEffect(() => {
-    const initalExerciseState = {};
     exercises.map((exercise) => {
       initalExerciseState[exercise.name] = [crypto.randomUUID()];
     });

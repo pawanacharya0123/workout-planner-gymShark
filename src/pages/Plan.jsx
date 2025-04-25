@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Plan = () => {
   const navigate = useNavigate();
-  const plans = useSelector((state) => state.plan.plans);
+
+  const { plans, workouts } = useSelector((state) => state.plan);
 
   useEffect(() => {
     if (plans.length === 0)
@@ -15,25 +16,27 @@ const Plan = () => {
       });
   }, [plans, navigate]);
 
-  const workouts = useSelector((state) => state.plan.workouts);
-
   const workoutSessions = useSelector((state) => state.session.workoutSessions);
-  const filteredSortedWorkoutSessions = workoutSessions
-    .slice()
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .filter((wk) => wk.exercises.length >= 1);
+  const filteredSortedWorkoutSessions = useMemo(() => {
+    return workoutSessions
+      .slice()
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .filter((wk) => wk.exercises.length >= 1);
+  }, [workoutSessions]);
 
-  const sortedPlanIdArrayList = filteredSortedWorkoutSessions.map(
-    (wk) => workouts.find((workout) => workout.id === wk.workoutId)["planId"]
-  );
-  const sortedPlansArray = Array.from(new Set(sortedPlanIdArrayList));
+  const sortedPlans = useMemo(() => {
+    const sortedPlanIdArrayList = filteredSortedWorkoutSessions.map(
+      (wk) => workouts.find((workout) => workout.id === wk.workoutId)?.planId
+    );
+    const sortedPlansArray = Array.from(new Set(sortedPlanIdArrayList));
 
-  const sortedPlans = [
-    ...sortedPlansArray
-      .map((id) => plans.find((plan) => plan.id === id))
-      .filter(Boolean),
-    ...plans.filter((plan) => !sortedPlansArray.includes(plan.id)),
-  ];
+    return [
+      ...sortedPlansArray
+        .map((id) => plans.find((plan) => plan.id === id))
+        .filter(Boolean),
+      ...plans.filter((plan) => !sortedPlansArray.includes(plan.id)),
+    ];
+  }, [filteredSortedWorkoutSessions, workouts, plans]);
 
   const firstSession = filteredSortedWorkoutSessions[0];
   const workoutId = firstSession?.workoutId;

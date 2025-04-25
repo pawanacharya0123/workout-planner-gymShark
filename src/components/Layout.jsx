@@ -1,15 +1,11 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-// import { useEffect } from "react";
 import ThemeButton from "./ThemeButton";
 import CustomNavLink from "./navbar-component/CustomNavLink";
 import UnitButton from "./UnitButton";
 
 const Layout = () => {
-  // const location = useLocation();
-  // const isActive = activePaths.includes(location.pathname);
-
   return (
     <div>
       {/* Navbar */}

@@ -1,30 +1,6 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* src/index.css */
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
-/* .navbar {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #222;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-}
-
-.nav-link.active {
-  color: #4ade80;
-  font-weight: bold;
-} */
-
 html.light {
   --bg-color: #fff;
   --text-color: #000;

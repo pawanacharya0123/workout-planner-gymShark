@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import WorkOutHistory from "../components/WorkOutHistory";
+import useWorkouts from "../utils/customHooks/useWorkouts";
 
 const Workout = () => {
   const { planId } = useParams();
+
+  if (!planId) {
+    return (
+      <div className="text-center mt-8 text-red-500">
+        Invalid Plan ID. Please go back and select a valid plan.
+      </div>
+    );
+  }
+
   const navigate = useNavigate();
 
-  const workouts = useSelector((state) => state.plan.workouts).filter(
-    (workout) => workout.planId == planId
+  const workouts = useWorkouts();
+  const workoutsAssociatedWithThePlan = useMemo(
+    () => workouts.filter((workout) => workout.planId == planId),
+    [workouts, planId]
   );
-
-  // if (workouts.length === 0) {
-  //   setWarningMessage("Add workout to the Plan");
-  // }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
@@ -30,17 +37,16 @@ const Workout = () => {
         </h2>
       </div>
 
-      {workouts.length === 0 && (
+      {workoutsAssociatedWithThePlan.length === 0 && (
         <div className="bg-yellow-100 dark:bg-yellow-300 text-yellow-800 dark:text-yellow-900 p-4 rounded-lg mb-6">
           Add a workout to the plan to get started!
         </div>
       )}
 
       <ul className="space-y-6">
-        {workouts.map((workout) => (
+        {workoutsAssociatedWithThePlan.map((workout) => (
           <li key={workout.id}>
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-md transition duration-200">
-              {/* <WorkOutHistory workoutProp={workout} /> */}
               <div className="flex justify-center">
                 <WorkOutHistory workoutProp={workout} />
               </div>
@@ -57,31 +63,6 @@ const Workout = () => {
         ))}
       </ul>
     </div>
-
-    // <div>
-    //   <h2>
-    //     <button onClick={() => navigate(-1)}>Back</button>
-    //   </h2>
-    //   {workouts.length === 0 && (
-    //     <div className="alert">Add workout to the Plan</div>
-    //   )}
-    //   <ul>
-    //     {workouts.map((workout) => (
-    //       <>
-    //         <li key={workout.id}>
-    //           <WorkOutHistory workoutProp={workout} />
-    //           <Link to={`/exercise/${workout.id}`} key={workout.id}>
-    //             <h3 style={{ fontWeight: "bold" }}>
-    //               {workout.name.toUpperCase()}{" "}
-    //               <span style={{ color: "#888" }}>→ Start Workout</span>
-    //             </h3>
-    //           </Link>
-    //         </li>
-    //         <hr />
-    //       </>
-    //     ))}
-    //   </ul>
-    // </div>
   );
 };
 

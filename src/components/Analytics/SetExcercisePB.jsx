@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addPB } from "../../features/analytics/pbBoardSlice";
 import { EXERCISE_LIST } from "../../utils/listOfExercises";
-
-// const dummyExercises = [
-//   "Squat",
-//   "Deadlift",
-//   "Bench Press",
-//   "Pull-ups",
-//   "Overhead Press",
-// ];
+import useExercisePB from "../../utils/customHooks/useExercisePB";
 
 const SetExcercisePB = () => {
   const dispatch = useDispatch();
-  const exercisePBList = useSelector((state) => state.pb);
+  const exercisePBList = useExercisePB();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleAddPB = (exercise) => {
@@ -21,7 +14,7 @@ const SetExcercisePB = () => {
     setShowDropdown(false);
   };
 
-  const exerciseToPB = EXERCISE_LIST.filter(
+  const exerciseToMap = EXERCISE_LIST.filter(
     (ex) => !exercisePBList.includes(ex)
   );
 
@@ -29,7 +22,6 @@ const SetExcercisePB = () => {
   return (
     <div className=" flex items-center justify-center">
       <div className="flex flex-col items-center">
-        {/* Big + Button */}
         {!showDropdown ? (
           <button
             onClick={() => setShowDropdown(true)}
@@ -45,7 +37,7 @@ const SetExcercisePB = () => {
                 Select an Exercise
               </h3>
               <button
-                onClick={() => setShowDropdown(false)} // replace with your actual handler
+                onClick={() => setShowDropdown(false)}
                 className="text-gray-500 hover:text-red-600 transition"
                 aria-label="Remove Exercise"
               >
@@ -53,16 +45,22 @@ const SetExcercisePB = () => {
               </button>
             </div>
             <ul>
-              {exerciseToPB.map((exercise, idx) => (
-                <li key={idx}>
-                  <button
-                    onClick={() => handleAddPB(exercise)}
-                    className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                  >
-                    {exercise}
-                  </button>
-                </li>
-              ))}
+              {exerciseToMap.length === 0 ? (
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  All exercises are added!
+                </p>
+              ) : (
+                exerciseToMap.map((exercise) => (
+                  <li key={exercise}>
+                    <button
+                      onClick={() => handleAddPB(exercise)}
+                      className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    >
+                      {exercise}
+                    </button>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         )}

@@ -16,7 +16,7 @@ export const store = configureStore({
     unit: unitReducer,
     pb: pbBoardReducer,
   },
-  preloadedState: persistedState, // 👈 load from localStorage
+  preloadedState: persistedState, //  load from localStorage
 });
 
 // Save to localStorage on state change
