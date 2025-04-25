@@ -39,7 +39,16 @@ const Workout = () => {
 
       {workoutsAssociatedWithThePlan.length === 0 && (
         <div className="bg-yellow-100 dark:bg-yellow-300 text-yellow-800 dark:text-yellow-900 p-4 rounded-lg mb-6">
-          Add a workout to the plan to get started!
+          <Link
+            to={"/create"}
+            state={{
+              message:
+                "Redirect message: No workouts found!, Create a workout here",
+              selectedPlan: planId,
+            }}
+          >
+            Add a workout to the plan to get started!
+          </Link>
         </div>
       )}
 

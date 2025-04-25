@@ -51,24 +51,30 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
 
   return (
     <div className="space-y-2">
-      {groupDatesWithWeights.map((dateWithWeight) => (
-        <div
-          key={dateWithWeight.date}
-          className="flex justify-between items-center p-2 bg-gray-100 dark:bg-gray-700 rounded"
-        >
-          <span className="text-sm text-gray-600 dark:text-gray-300">
-            {new Date(dateWithWeight.date).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-          <span className="text-sm font-semibold text-gray-800 dark:text-white">
-            {dateWithWeight.weight}{" "}
-            {filterOn === "weight" ? globalUnit : "Reps"}
-          </span>
+      {groupDatesWithWeights.length ? (
+        groupDatesWithWeights.map((dateWithWeight) => (
+          <div
+            key={dateWithWeight.date}
+            className="flex justify-between items-center p-2 bg-gray-100 dark:bg-gray-700 rounded"
+          >
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              {new Date(dateWithWeight.date).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </span>
+            <span className="text-sm font-semibold text-gray-800 dark:text-white">
+              {dateWithWeight.weight}{" "}
+              {filterOn === "weight" ? globalUnit : "Reps"}
+            </span>
+          </div>
+        ))
+      ) : (
+        <div className="flex justify-between items-center p-2 bg-gray-100 dark:bg-gray-700 rounded">
+          No data found
         </div>
-      ))}
+      )}
     </div>
   );
 };

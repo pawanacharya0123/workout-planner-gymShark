@@ -49,4 +49,7 @@ const planSlice = createSlice({
 export const { addPlan, addWorkout, addExercises, updatePlan, updateWorkout } =
   planSlice.actions;
 
+export const selectPlanById = (state, planId) =>
+  state.plan.plans.find((plan) => plan.id === planId);
+
 export default planSlice.reducer;
