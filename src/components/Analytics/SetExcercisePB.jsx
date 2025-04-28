@@ -34,7 +34,7 @@ const SetExcercisePB = () => {
           <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-md w-64">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-md font-semibold mb-2 text-center">
-                Select an Exercise
+                Select (Monthly Review)
               </h3>
               <button
                 onClick={() => setShowDropdown(false)}

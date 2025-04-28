@@ -48,6 +48,9 @@ const ExercisePB = ({ exerciseName, filterOn }) => {
     .filter(Boolean);
 
   const groupDatesWithWeights = groupWeightByDate(datesWithWeights);
+  groupDatesWithWeights.sort(
+    (ele1, ele2) => formatDate(ele2.date) - formatDate(ele1.date)
+  );
 
   return (
     <div className="space-y-2">
